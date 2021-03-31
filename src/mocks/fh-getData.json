@@ -1,0 +1,271 @@
+{
+    "content": {
+        "Haruame.mp4": {
+            "type": "file",
+            "path": "/Haruame.mp4",
+            "size": 14042067,
+            "timestamps": {
+                "created": "2021-03-29T01:13:41.071Z",
+                "accessed": "2020-12-29T22:38:00.119Z",
+                "modified": "2020-12-29T22:38:00.119Z"
+            },
+            "fileName": "Haruame",
+            "fileExt": "mp4"
+        },
+        "Reactjs Developer - Lcl.pdf": {
+            "type": "file",
+            "path": "/Reactjs Developer - Lcl.pdf",
+            "size": 51382,
+            "timestamps": {
+                "created": "2021-03-29T01:14:33.101Z",
+                "accessed": "2021-02-24T03:08:10.317Z",
+                "modified": "2021-02-24T03:08:10.317Z"
+            },
+            "fileName": "Reactjs Developer - Lcl",
+            "fileExt": "pdf"
+        },
+        "Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN": {
+            "type": "dir",
+            "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN",
+            "size": 140025023,
+            "timestamps": {
+                "created": "2021-03-29T01:14:18.171Z",
+                "accessed": "2021-03-10T15:45:08.855Z",
+                "modified": "2021-03-10T15:45:08.855Z"
+            },
+            "content": {
+                "01. Inkya Impulse.flac": {
+                    "type": "file",
+                    "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN/01. Inkya Impulse.flac",
+                    "size": 38431209,
+                    "timestamps": {
+                        "created": "2021-03-29T01:14:18.171Z",
+                        "accessed": "2021-03-10T16:09:30.116Z",
+                        "modified": "2021-03-10T16:09:30.116Z"
+                    },
+                    "fileName": "01. Inkya Impulse",
+                    "fileExt": "flac"
+                },
+                "02. Asobi Asobase.flac": {
+                    "type": "file",
+                    "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN/02. Asobi Asobase.flac",
+                    "size": 32096912,
+                    "timestamps": {
+                        "created": "2021-03-29T01:14:18.171Z",
+                        "accessed": "2021-03-10T16:08:59.022Z",
+                        "modified": "2021-03-10T16:08:59.022Z"
+                    },
+                    "fileName": "02. Asobi Asobase",
+                    "fileExt": "flac"
+                },
+                "03. Inkya Impulse (instrumental).flac": {
+                    "type": "file",
+                    "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN/03. Inkya Impulse (instrumental).flac",
+                    "size": 37940926,
+                    "timestamps": {
+                        "created": "2021-03-29T01:14:18.171Z",
+                        "accessed": "2021-03-10T16:09:30.116Z",
+                        "modified": "2021-03-10T16:09:30.116Z"
+                    },
+                    "fileName": "03. Inkya Impulse (instrumental)",
+                    "fileExt": "flac"
+                },
+                "04. Asobi Asobase (instrumental).flac": {
+                    "type": "file",
+                    "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN/04. Asobi Asobase (instrumental).flac",
+                    "size": 31301164,
+                    "timestamps": {
+                        "created": "2021-03-29T01:14:18.171Z",
+                        "accessed": "2021-03-10T16:08:48.117Z",
+                        "modified": "2021-03-10T16:08:48.117Z"
+                    },
+                    "fileName": "04. Asobi Asobase (instrumental)",
+                    "fileExt": "flac"
+                },
+                "cover.jpg": {
+                    "type": "file",
+                    "path": "/Inkya Impulse - Hina Kino, Rika Nagae, Kasumi Nomura feat. Ikepy & KSKN/cover.jpg",
+                    "size": 254812,
+                    "timestamps": {
+                        "created": "2021-03-29T01:14:18.171Z",
+                        "accessed": "2021-03-10T15:46:21.621Z",
+                        "modified": "2021-03-10T15:46:21.621Z"
+                    },
+                    "fileName": "cover",
+                    "fileExt": "jpg"
+                }
+            },
+            "contains": {
+                "file": 5,
+                "folder": 0
+            }
+        },
+        "Vånner": {
+            "type": "dir",
+            "path": "/Vånner",
+            "size": 13523235,
+            "timestamps": {
+                "created": "2021-03-29T01:14:24.621Z",
+                "accessed": "2021-03-18T22:20:34.392Z",
+                "modified": "2021-03-18T22:20:34.388Z"
+            },
+            "content": {
+                "WP_20190516_19_56_48_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190516_19_56_48_Pro.jpg",
+                    "size": 672917,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.288Z",
+                        "modified": "2019-05-16T11:56:49.000Z"
+                    },
+                    "fileName": "WP_20190516_19_56_48_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190516_19_58_20_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190516_19_58_20_Pro.jpg",
+                    "size": 720227,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.297Z",
+                        "modified": "2019-05-16T11:58:22.000Z"
+                    },
+                    "fileName": "WP_20190516_19_58_20_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190517_14_08_04_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190517_14_08_04_Pro.jpg",
+                    "size": 1008580,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.307Z",
+                        "modified": "2019-05-17T06:08:06.000Z"
+                    },
+                    "fileName": "WP_20190517_14_08_04_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190519_19_24_37_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190519_19_24_37_Pro.jpg",
+                    "size": 1257770,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.317Z",
+                        "modified": "2019-05-19T11:24:39.000Z"
+                    },
+                    "fileName": "WP_20190519_19_24_37_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190519_19_24_47_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190519_19_24_47_Pro.jpg",
+                    "size": 1106449,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.326Z",
+                        "modified": "2019-05-19T11:24:48.000Z"
+                    },
+                    "fileName": "WP_20190519_19_24_47_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190519_19_24_55_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190519_19_24_55_Pro.jpg",
+                    "size": 1005099,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.336Z",
+                        "modified": "2019-05-19T11:24:56.000Z"
+                    },
+                    "fileName": "WP_20190519_19_24_55_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190523_11_49_47_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190523_11_49_47_Pro.jpg",
+                    "size": 1088704,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.345Z",
+                        "modified": "2019-05-23T03:49:48.000Z"
+                    },
+                    "fileName": "WP_20190523_11_49_47_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190523_11_51_50_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190523_11_51_50_Pro.jpg",
+                    "size": 1349435,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.354Z",
+                        "modified": "2019-05-23T03:51:51.000Z"
+                    },
+                    "fileName": "WP_20190523_11_51_50_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190523_11_51_58_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190523_11_51_58_Pro.jpg",
+                    "size": 1476418,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.364Z",
+                        "modified": "2019-05-23T03:51:59.000Z"
+                    },
+                    "fileName": "WP_20190523_11_51_58_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190523_11_52_03_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190523_11_52_03_Pro.jpg",
+                    "size": 1440754,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.373Z",
+                        "modified": "2019-05-23T03:52:05.000Z"
+                    },
+                    "fileName": "WP_20190523_11_52_03_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20190523_11_52_20_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20190523_11_52_20_Pro.jpg",
+                    "size": 1267440,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.381Z",
+                        "modified": "2019-05-23T03:52:21.000Z"
+                    },
+                    "fileName": "WP_20190523_11_52_20_Pro",
+                    "fileExt": "jpg"
+                },
+                "WP_20191008_14_50_22_Pro.jpg": {
+                    "type": "file",
+                    "path": "/Vånner/WP_20191008_14_50_22_Pro.jpg",
+                    "size": 1129442,
+                    "timestamps": {
+                        "created": "2021-01-21T21:24:28.102Z",
+                        "accessed": "2021-03-18T22:20:34.390Z",
+                        "modified": "2019-10-08T06:50:23.000Z"
+                    },
+                    "fileName": "WP_20191008_14_50_22_Pro",
+                    "fileExt": "jpg"
+                }
+            },
+            "contains": {
+                "file": 12,
+                "folder": 0
+            }
+        }
+    },
+    "contains": {
+        "file": 19,
+        "folder": 2
+    },
+    "size": 167641707,
+    "type": "folder",
+    "path": "/"
+}

@@ -1,0 +1,205 @@
+body , html , #app{
+    background-color : black;
+    height: 100%;
+}
+
+.span-content{
+    height: 100%;
+    width : 100%;
+}
+
+.span-height{
+    height : 100%;
+}
+
+.span-width{
+    width : 100%;
+}
+
+.content-height{
+    height: 90%;
+}
+
+
+.service-name{
+    font-family: Ubuntu;
+    font-size: 1.8em;
+}
+
+.filehub-card-icon{
+    width: fit-content;
+    height: fit-content;
+}
+
+.filehub-card-icon .bg-orange{
+    border-radius: 3px;
+    padding-inline: 2px;
+}
+
+#nav-controls{
+    width: 80%;
+}
+
+
+#directory-tree-panel{
+    height : 100%;
+    padding-inline: 10px;
+    border-radius: 6px;
+}
+
+#directory-tree{
+    overflow: auto;
+}
+
+#directory-tree svg{
+    margin-right: 2%;
+    text-align: left;
+}
+
+#directory-tree h5 ,h6{
+    font-family: Ubuntu;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width:1px;
+}
+
+#explorer-panel{
+    overflow-y : auto;
+    overflow-x : hidden;
+    border-radius: 6px;
+}
+
+#explorer-panel .details{
+    margin-bottom: 40px;
+}
+
+#explorer-panel .file-type{
+    width: 120px;
+    height: 120px;
+    margin-block: 10px;
+}
+
+#explorer-table{
+    overflow: auto;
+    background-color: #343a40;
+}
+
+/* #directory-tree .collapse{
+    border-left-color: white;
+    border-left-width: 3px;
+    border-left-style: dashed;
+}
+ */
+
+
+/*pls keep these rulesets, will be useful in the future.*/
+.action-card .card-header{
+    height: 80%;
+    overflow: auto;
+}
+
+
+.action-card #preview-audio{
+    width: 100%;
+    height: 30px;
+}
+
+.action-card #preview-document{
+    width: 90%;
+}
+
+.action-card #preview-archive{
+    zoom : 15;
+    opacity: 40%;
+}
+
+.action-card .btn-group{
+    float: right
+}
+
+#file-card{
+    overflow: auto;
+    background-color: rgba(0,0,0,.03);
+}
+
+#home-view{
+    font-family: Ubuntu;
+    font-size: larger;
+}
+
+#home-view img{
+    opacity: 90%;
+}
+
+#directory-content-list{
+    min-width: 50%;
+    max-width: 75%;
+}
+
+#directory-content-list svg{
+    opacity: 70%;
+}
+
+#directory-content-list h6{
+    white-space: nowrap;
+}
+
+#directory-content-list .list-group-item-custom{
+    color: white;
+    background-color: #343a40;
+}
+
+#directory-content-list .list-group-item-custom:hover svg{
+    opacity : 100%;
+    zoom : 1.1;
+    transition-duration : 600ms;
+}
+
+#directory-content-list button{
+    border-radius: 6px;
+    border-top: 1px;
+}
+
+.img-lg{
+    width: 70%;
+}
+
+.img-span{
+    width: 100%;
+}
+ 
+#directory-tree-col{
+    height: 100%;
+}
+
+.pointable{
+    cursor : pointer;
+}
+
+.zoomed{
+    zoom: 1.8;
+}
+
+.bg-orange{
+    background-color: rgb(255,153,0)
+}
+
+.bg-ash-gray{
+    background-color: #343a40;
+}
+
+.custom-dark{
+    background-color: rgb(27,27,27);
+}
+
+.custom-black{
+    background-color: black;
+}
+
+.text-black{
+    color: black;
+}
+
+.text-orange{
+    color : rgb(255,153,0)
+}
