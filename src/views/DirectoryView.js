@@ -19,10 +19,7 @@ export default function DirectoryView(props) {
             <center><h4>Contents</h4></center>
             <Row>
                 <Col className="span-content">
-                    <DirectoryContent data={content} onItemSelect={(e , v)=>{
-                        e.preventDefault();
-                        props.onItemSelect(v);
-                    }} />
+                    <DirectoryContent data={content} onItemSelect={props.onItemSelect} />
                 </Col>
             </Row>
         </div>
@@ -43,7 +40,7 @@ function DirectoryDetails(props) {
         <h6>Total Size: {bytesToSize(size)}</h6>
 
         <ButtonGroup>
-            <Button variant="primary">Download</Button>
+            <Button variant="primary" disabled>Download</Button>
         </ButtonGroup>
     </center>
 }
@@ -57,7 +54,7 @@ function DirectoryContent(props) {
 
                     let titleStr = `\nDate Modified:${new Date(v.timestamps.created).toDateString()}\nSize: ${bytesToSize(v.size)}\n`;
 
-                    return <ListGroup.Item key={_key} className="text-left text-inline my-2 list-group-item-custom" variant="dark" title={titleStr} onClick={(e) => props.onItemSelect(e, {key : _key , value : v})} action>
+                    return <ListGroup.Item key={_key} className="text-left text-inline my-2 list-group-item-custom" variant="dark" title={titleStr} onClick={() => props.onItemSelect({key : _key , value : v})} action>
                         <h5>
                             <span className={`fas fa-${v.type === "dir" ? "folder" : determineFileType(v.fileExt)} mr-3 text-orange`}></span>
                             {_key}

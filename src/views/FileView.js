@@ -1,87 +1,123 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import request from "request";
 
 import { bytesToSize, determineFileType } from "../utils";
 import { APISERVER, STATICSERVER } from "../App";
 
-export default class FileView extends React.Component {
+export default function FileView(props) {
+    const [info, setInfo] = useState({
+        metadata: { success: false, error: null, data: null },
+        thumbnail: { success: false, error: null, data: null }
+    });
 
-    constructor(props) {
-        super(props);
+    const [widgets, setWidgets] = useState({
+        audio: { paused: true }
+    });
 
-        this.state = {
-            info: {
-                metadata: {
-                    success: false,
-                    error: null,
-                    data: null
-                },
-                thumbnail: {
-                    success: false,
-                    error: null,
-                    data: null
-                }
-            },
-            data: this.props.data,
-            widgets: {
-                audio: {
-                    paused: true
-                }
-            }
-        }
+    const data = props.data.value;
 
 
+    let handleAudioPreview = () => {
+        let player = document.getElementById("preview-audio");
+
+        let audio = widgets.audio;
+        audio.paused = !audio.paused;
+        player[audio.paused ? "pause" : "play"]();
+
+        setWidgets({
+            ...widgets,
+            audio
+        })
     }
 
-    componentDidMount() {
-        switch (determineFileType(this.state.data.value.fileExt)) {
+    useEffect(() => {
+        let lookupThumbnail = () => {
+            request.get(`${APISERVER}/getThumbnail?p=${encodeURI(data.path).replace("&", "%26")}`, {}, (err, res, body) => {
+                if (!err) {
+                    let thumbnail = info.thumbnail;
 
-            case "video":
-                this.fetchData();
+                    thumbnail.success = res.statusCode === 200;
 
-                break;
+                    if (thumbnail.success) {
+                        thumbnail.data = JSON.parse(body).id;
+                    } else {
+                        thumbnail.data = null;
+                        thumbnail.error = JSON.parse(body);
+                    }
+                    props.onServerReconnect();
+                    setInfo({
+                        ...info,
+                        thumbnail
+                    })
+                } else {
+                    this.props.onServerError("Server Unreachable");
+                }
+            });
+        }
 
-            case "music":
-                this.fetchData();
-                this.lookupThumbnail();
+        let fetchData = () => {
+            request.get(`${APISERVER}/getMetadata?p=${encodeURI(data.path).replace("&", "%26")}`, {}, (err, res, body) => {
+                if (!err) {
+                    let metadata = info.metadata;
+
+                    metadata.success = res.statusCode === 200;
+
+                    if (metadata.success) {
+                        let temp = JSON.parse(body);
+
+                        for (const key of Object.keys(temp)) {
+                            temp[key.toLowerCase()] = temp[key];
+                        }
+
+                        metadata.data = temp;
+                    } else {
+                        metadata.data = null;
+                        metadata.error = JSON.parse(body);
+                    }
+                    props.onServerReconnect();
+
+                    setInfo({
+                        ...info,
+                        metadata
+                    })
+                } else {
+                    props.onServerError("Server Unreachable");
+                }
+            });
+        }
+        switch (determineFileType(data.fileExt)) {
+
+            case "video": fetchData(); break;
+
+            case "music": {
+                fetchData();
+                lookupThumbnail();
+
 
                 let player = document.getElementById("preview-audio");
 
-                player.onended = ()=>{
-                    let widgets = this.state.widgets;
-                    widgets.audio.paused = true;
-                    this.setState({widgets});
+                player.onended = () => {
+                    setWidgets({
+                        ...widgets,
+                        paused: true
+                    });
                 }
-
-                break;
+            } break;
 
             default: break;
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
-    render() {
-        let { data } = this.state || {};
+    function renderActionCard() {
 
-        let content = "";
-
-        if (data) {
-            content = this.renderActionCard();
-        }
-
-        return content;
-    }
-
-    renderActionCard = () => {
-        let { info } = this.state;
-        let { value } = this.state.data;
-
-        const contentSrc = `${STATICSERVER}/content/${value.path}`;
+        const contentSrc = `${STATICSERVER}/content/${data.path}`;
 
         let HEADER, FOOTER;
 
         if (info.metadata) {
-            const fileType = determineFileType(value.fileExt);
+            const fileType = determineFileType(data.fileExt);
 
             //Did it like this for now since I plan to add more functionality on each views later on,
             //Once finalized, it should be wrapped in a cleaner reusable functional component. 
@@ -105,20 +141,20 @@ export default class FileView extends React.Component {
                     FOOTER = <>
                         <Card.Title>
                             <h3>
-                                {value.fileName}
+                                {data.fileName}
                                 <ButtonGroup>
-                                    <Button className="mx-1" variant="secondary" onClick={this.handleAudioPreview} >
+                                    <Button className="mx-1" variant="secondary" onClick={handleAudioPreview} >
                                         <span className="fas fa-headphones mx-2"></span>
-                                        {this.state.widgets.audio.paused ? "Preview" : "Pause"}
+                                        {widgets.audio.paused ? "Preview" : "Pause"}
                                     </Button>
-                                    <Button className="mx-1" variant="primary" href={contentSrc} target="_blank">
+                                    <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                         <span className="fas fa-download mx-2"></span>
-                                        Save ({bytesToSize(value.size)})
-                                    </Button>
+                                        Save ({bytesToSize(data.size)})
+                                    </a>
                                 </ButtonGroup>
                             </h3>
-                            <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                            <h5>Audio Format: {value.fileExt.toUpperCase()}</h5>
+                            <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                            <h5>Audio Format: {data.fileExt.toUpperCase()}</h5>
                         </Card.Title>
                         {metadataContent}
 
@@ -139,20 +175,20 @@ export default class FileView extends React.Component {
 
                     FOOTER = <Card.Title>
                         <h3>
-                            {value.fileName}
+                            {data.fileName}
                             <ButtonGroup>
                                 <Button className="mx-1" variant="secondary" title="No modules available" disabled>
                                     <span className="fas fa-clipboard mx-2"></span>
                                         Get Stream URL
                                     </Button>
-                                <Button className="mx-1" variant="primary" href={contentSrc} target="_blank">
+                                <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                     <span className="fas fa-download mx-2"></span>
-                                        Save ({bytesToSize(value.size)})
-                                    </Button>
+                                        Save ({bytesToSize(data.size)})
+                                    </a>
                             </ButtonGroup>
                         </h3>
-                        <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                        <h5>Video Format: {value.fileExt.toUpperCase()}</h5>
+                        <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                        <h5>Video Format: {data.fileExt.toUpperCase()}</h5>
                     </Card.Title>
 
                     break;
@@ -165,16 +201,16 @@ export default class FileView extends React.Component {
 
                     FOOTER = <Card.Title>
                         <h3>
-                            {value.fileName}
+                            {data.fileName}
                             <ButtonGroup>
-                                <Button variant="primary" href={contentSrc} target="_blank">
+                                <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                     <span className="fas fa-download mx-2"></span>
-                                        Save ({bytesToSize(value.size)})
-                                    </Button>
+                                    Save ({bytesToSize(data.size)})
+                                </a>
                             </ButtonGroup>
                         </h3>
-                        <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                        <h5>Image Format: {value.fileExt.toUpperCase()}</h5>
+                        <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                        <h5>Image Format: {data.fileExt.toUpperCase()}</h5>
                     </Card.Title>
                     break;
 
@@ -187,16 +223,16 @@ export default class FileView extends React.Component {
 
                     FOOTER = <Card.Title>
                         <h3>
-                            {value.fileName}
+                            {data.fileName}
                             <ButtonGroup>
-                                <Button variant="primary" href={contentSrc} target="_blank">
+                                <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                     <span className="fas fa-download mx-2"></span>
-                                        Save ({bytesToSize(value.size)})
-                                    </Button>
+                                    Save ({bytesToSize(data.size)})
+                                </a>
                             </ButtonGroup>
                         </h3>
-                        <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                        <h5>Document Format: {value.fileExt.toUpperCase()}</h5>
+                        <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                        <h5>Document Format: {data.fileExt.toUpperCase()}</h5>
                     </Card.Title>
 
                     break;
@@ -204,22 +240,22 @@ export default class FileView extends React.Component {
                 case "archive":
                     HEADER = <center className="span-content pt-5">
                         <span className="fas fa-archive text-orange" id="preview-archive"></span>
-                        <br/>
-                        <h3 className="text-center mt-4">Filehub does not have any built-in support for viewing compressed files.</h3>  
+                        <br />
+                        <h3 className="text-center mt-4">Filehub does not have any built-in support for viewing compressed files.</h3>
                     </center>
 
                     FOOTER = <Card.Title>
                         <h3>
-                            {value.fileName}
+                            {data.fileName}
                             <ButtonGroup>
-                                <Button variant="primary" href={contentSrc} target="_blank">
+                                <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                     <span className="fas fa-download mx-2"></span>
-                                Save ({bytesToSize(value.size)})
-                            </Button>
+                                    Save ({bytesToSize(data.size)})
+                                </a>
                             </ButtonGroup>
                         </h3>
-                        <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                        <h5>Compression Format: {value.fileExt.toUpperCase()}</h5>
+                        <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                        <h5>Compression Format: {data.fileExt.toUpperCase()}</h5>
                     </Card.Title>
 
                     break;
@@ -227,21 +263,21 @@ export default class FileView extends React.Component {
                 default:
                     HEADER = <center className="span-content pt-5">
                         <span className="fas fa-file text-orange" id="preview-archive"></span>
-                        <br/>
-                        <h3 className="text-center mt-4">Filehub does not recognize this type of file, please save it instead</h3>  
+                        <br />
+                        <h3 className="text-center mt-4">Filehub does not recognize this type of file, please save it instead</h3>
                     </center>
                     FOOTER = <Card.Title>
                         <h3>
-                            {value.fileName}
+                            {data.fileName}
                             <ButtonGroup>
-                                <Button variant="primary" href={contentSrc} target="_blank">
+                                <a className="btn btn-primary mx-1" variant="primary" href={contentSrc} download>
                                     <span className="fas fa-download mx-2"></span>
-                            Save ({bytesToSize(value.size)})
-                        </Button>
+                                    Save ({bytesToSize(data.size)})
+                                </a>
                             </ButtonGroup>
                         </h3>
-                        <h4>{new Date(value.timestamps.created).toDateString()}</h4>
-                        <h5>File Extension: {value.fileExt.toUpperCase()}</h5>
+                        <h4>{new Date(data.timestamps.created).toDateString()}</h4>
+                        <h5>File Extension: {data.fileExt.toUpperCase()}</h5>
                     </Card.Title>
 
             }
@@ -258,63 +294,5 @@ export default class FileView extends React.Component {
         }
     }
 
-    handleAudioPreview = () => {
-        let player = document.getElementById("preview-audio");
-
-        let widgets = this.state.widgets;
-        widgets.audio.paused = !widgets.audio.paused;
-        player[widgets.audio.paused ? "pause" : "play"]();
-
-        this.setState({ widgets });
-    }
-
-    fetchData = () => {
-        request.get(`${APISERVER}/getMetadata?p=${encodeURI(this.props.data.value.path).replace("&","%26")}`, {}, (err, res, body) => {
-            if (!err) {
-                let info = this.state.info;
-                let metadata = info.metadata;
-
-                metadata.success = res.statusCode === 200;
-
-                if (metadata.success) {
-                    let temp = JSON.parse(body);
-
-                    for (const key of Object.keys(temp)) {
-                        temp[key.toLowerCase()] = temp[key];
-                    }
-
-                    metadata.data = temp;
-                } else {
-                    metadata.data = null;
-                    metadata.error = JSON.parse(body);
-                }
-                this.props.onServerReconnect();
-                this.setState({ info });
-            } else {
-                this.props.onServerError("Server Unreachable");
-            }
-        });
-    }
-
-    lookupThumbnail = () => {
-        request.get(`${APISERVER}/getThumbnail?p=${encodeURI(this.props.data.value.path).replace("&","%26")}`, {}, (err, res, body) => {
-            if (!err) {
-                let info = this.state.info;
-                let thumbnail = info.thumbnail;
-
-                thumbnail.success = res.statusCode === 200;
-
-                if (thumbnail.success) {
-                    thumbnail.data = JSON.parse(body).id;
-                } else {
-                    thumbnail.data = null;
-                    thumbnail.error = JSON.parse(body);
-                }
-                this.props.onServerReconnect();
-                this.setState({ info });
-            } else {
-                this.props.onServerError("Server Unreachable");
-            }
-        });
-    }
+    return data ? renderActionCard() : "";
 }

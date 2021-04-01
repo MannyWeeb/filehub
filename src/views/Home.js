@@ -14,7 +14,7 @@ export default function Home() {
 
         <Row className="mb-3 pt-4">
             <Col className="span-width" xl={8} lg={12} md={12} sm={12}>
-                <img className="span-width" src={"/fh/res/images/hosting_screenshot.png"} alt="how_to_host_screenshot"></img>
+                <img className="span-width" src={"res/images/hosting_screenshot.png"} alt="how_to_host_screenshot"></img>
             </Col>
             <Col className="py-5" xl={4} lg={12} md={12} sm={12}>
                 <u><h3>As a Host:</h3></u>
@@ -42,7 +42,7 @@ export default function Home() {
                 <Button variant="primary">Connecting to a Host.</Button>
             </Col>
             <Col xl={8} lg={12} md={12} sm={12}>
-                <img className="span-width" src="/fh/res/images/connecting_screenshot.png" alt="getting_connected_screenshot"></img>
+                <img className="span-width" src="res/images/connecting_screenshot.png" alt="getting_connected_screenshot"></img>
             </Col>
         </Row>
 

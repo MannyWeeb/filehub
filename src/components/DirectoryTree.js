@@ -41,7 +41,7 @@ function renderBranch(props, onItemSelect , depth) {
 
         if (type === "dir") {
             return <div style={{ textIndent: `${depth}em` }} key={path}>
-                <h5 className="pointable text-left " data-toggle="collapse" href={`#div-${_id}`} onClick={() => {onItemSelect({ key: val, value: props[val] }) }}>
+                <h5 className="pointable text-left " data-toggle="collapse" href={`#div-${_id}`} onClick={()=>onItemSelect({key : val , value : props[val]})}>
                     <span className="fas fa-folder text-orange"></span> {val}
                 </h5>
 
@@ -54,7 +54,7 @@ function renderBranch(props, onItemSelect , depth) {
 
             let fileType = determineFileType(fileExt);
 
-            return <h5 style={{ textIndent: `${depth}em` }} className="pointable" key={path} onClick={() => { onItemSelect({ key: val, value: props[val] }) }}>
+            return <h5 style={{ textIndent: `${depth}em` }} className="pointable" key={path} onClick={()=>onItemSelect({key : val , value : props[val]})}>
                 <span className={`fas fa-${fileType} text-orange`} ></span>
                 {val}
             </h5>
