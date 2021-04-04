@@ -3,6 +3,21 @@ body , html , #app{
     height: 100%;
 }
 
+*::-webkit-scrollbar{
+    width : 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track{
+    background-color: #343a40;
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: rgba(255,153,0, 0.8);
+    border-radius: 20px;
+    border: 3px;
+}
+
 .span-content{
     height: 100%;
     width : 100%;
@@ -131,6 +146,28 @@ body , html , #app{
     opacity: 90%;
 }
 
+#home-view .col{
+    overflow: hidden;
+    position:relative;
+    background-color: #1e1e1e;
+    text-align: center;
+    height: 350px;
+    border: 1px rgba(255,153,0 , 0.15) solid;
+    border-radius: 20px;
+}
+
+#home-view .bg-guide{
+    opacity: 0.30;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: auto;
+}
+
+#home-view .bg-text{
+    position: relative; 
+}
+
 #directory-content-list{
     min-width: 50%;
     max-width: 75%;
@@ -158,6 +195,28 @@ body , html , #app{
 #directory-content-list button{
     border-radius: 6px;
     border-top: 1px;
+}
+
+#support-navbar{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#support-panel .text-secondary{
+    color : #aebecc!important;
+}
+
+.noteblock{
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 12px;
+    background-color: #2d2f33;
+    color: white;
+}
+
+.border-orange{
+    border-color: rgb(255,153,0)!important;
+    border-width: 3px!important;
 }
 
 .img-lg{

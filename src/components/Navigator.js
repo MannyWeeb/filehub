@@ -14,10 +14,10 @@ function Navigator(props) {
 
         <Navbar.Collapse id="nav-controls">
             <Nav>
-                <Nav.Link className="text-light text-bold mr-3">
+                <Nav.Link className="text-light text-bold mr-3" disabled>
                     <b><span className="fas fa-plus mr-1"></span>New Folder</b>
                 </Nav.Link>
-                <Nav.Link className="text-light text-bold">
+                <Nav.Link className="text-light text-bold" disabled>
                     <b><span className="fas fa-upload mr-1"></span>Upload</b>
                 </Nav.Link>
             </Nav>
@@ -26,7 +26,7 @@ function Navigator(props) {
         <Navbar.Collapse>
             <Nav>
                 <NavDropdown title="Language" id="language-toggler">
-                    <NavDropdown.Item active>EN</NavDropdown.Item>
+                    <NavDropdown.Item active>English</NavDropdown.Item>
                 </NavDropdown>
             </Nav>
         </Navbar.Collapse>

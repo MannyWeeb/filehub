@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import request from "request";
 
@@ -15,15 +15,14 @@ export default function FileView(props) {
         audio: { paused: true }
     });
 
+    const audioPlayer = useRef();
+
     const data = props.data.value;
 
-
     let handleAudioPreview = () => {
-        let player = document.getElementById("preview-audio");
-
         let audio = widgets.audio;
         audio.paused = !audio.paused;
-        player[audio.paused ? "pause" : "play"]();
+        audioPlayer.current[audio.paused ? "pause" : "play"]();
 
         setWidgets({
             ...widgets,
@@ -55,7 +54,7 @@ export default function FileView(props) {
                 }
             });
         }
-
+        
         let fetchData = () => {
             request.get(`${APISERVER}/getMetadata?p=${encodeURI(data.path).replace("&", "%26")}`, {}, (err, res, body) => {
                 if (!err) {
@@ -94,7 +93,6 @@ export default function FileView(props) {
                 fetchData();
                 lookupThumbnail();
 
-
                 let player = document.getElementById("preview-audio");
 
                 player.onended = () => {
@@ -108,7 +106,7 @@ export default function FileView(props) {
             default: break;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    },[props]);
 
     function renderActionCard() {
 
@@ -158,9 +156,7 @@ export default function FileView(props) {
                         </Card.Title>
                         {metadataContent}
 
-                        <br />
-
-                        <audio id="preview-audio">
+                        <audio ref={audioPlayer} id="preview-audio">
                             <source src={contentSrc}></source>
                             Sorry! Your browser does not support audio tags.
                         </audio>
@@ -168,7 +164,7 @@ export default function FileView(props) {
                     break;
 
                 case "video":
-                    HEADER = <video className="span-content" id="preview-video" controls>
+                    HEADER = <video className="span-content" id="preview-video" controlsList="nodownload" controls>
                         <source src={contentSrc}></source>
                             Sorry! Your browser does not support video tags.
                         </video>
