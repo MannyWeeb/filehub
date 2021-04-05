@@ -18,6 +18,11 @@ body , html , #app{
     border: 3px;
 }
 
+*::-webkit-scrollbar-corner{
+    background-color: orange;
+}
+
+
 .span-content{
     height: 100%;
     width : 100%;
@@ -116,7 +121,6 @@ body , html , #app{
 
 .action-card #preview-audio{
     width: 100%;
-    height: 30px;
 }
 
 .action-card #preview-document{
@@ -129,7 +133,18 @@ body , html , #app{
 }
 
 .action-card .btn-group{
-    float: right
+    padding-bottom: .25rem;
+}
+
+.action-card .btn-group button{
+    margin-left: 0px;
+    margin-right: .25rem;
+}
+
+@media only screen and (min-width:992px){
+    .action-card .btn-group{
+        float: right;
+    }
 }
 
 #file-card{
@@ -212,11 +227,24 @@ body , html , #app{
     padding: 12px;
     background-color: #2d2f33;
     color: white;
+    height: min-content;
+}
+
+.codeblock{
+    padding-block: 12px;
+    padding-inline: 12px;
+    border-radius: 6px;
+    background-color: #1d2124;
+    color: white;
 }
 
 .border-orange{
     border-color: rgb(255,153,0)!important;
     border-width: 3px!important;
+}
+
+.support-col{
+    width: 90px;
 }
 
 .img-lg{

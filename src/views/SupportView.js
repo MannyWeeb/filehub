@@ -38,10 +38,13 @@ export default function SupportView(props) {
 
 function Intro() {
     return <>
-        <h3>Introduction</h3>
+        <h3>
+            <span className="fas fa-book-open text-orange mr-2"></span>
+            Introduction
+        </h3>
         <p className="lead">
             Quick introduction on some of it's prominent features,
-            limitations and others.
+            limitations and other concerns.
         </p>
 
         <br />
@@ -54,7 +57,12 @@ function Intro() {
                 like how the feature in Asus File Manager works for file sharing but unlike
                 that alternative, FileHub allows prospecting users to stream or download media files,
                 documents, archives, just about anything really.
-                    </p>
+            </p>
+
+            <p className="noteblock">
+                Not only that, It's also mobile-friendly, which makes it usable on smaller screened devices,
+                Also If the theme reminds you of something weird then please don't mention it to others :D
+            </p>
         </div>
 
         <br />
@@ -77,6 +85,7 @@ function Intro() {
 function Hosting() {
     return <>
         <h3>
+            <span className="fas fa-server text-orange mr-2"></span>
             Hosting
         </h3>
         <p className="lead">
@@ -93,6 +102,37 @@ function Hosting() {
             <p>After installing Node.js, you should be able to run the server out of the box by executing <u>web.bat</u> found within the server directory.</p>
         </div>
 
+        <br />
+        <br />
+
+        <div className="border-left border-orange pl-2">
+            <h4>Configuration</h4>
+            <p>
+                Within the server's root folder, you may notice a file named "config.json",
+                this is the file that you'll need to edit if you're looking to share a folder.
+            </p>
+
+            <p>This file contains some properties that are used by the server, for now we're only concerned with these two</p>
+
+            <p className="noteblock">{"modules > filehub > enabled (Boolean)"}</p>
+            <p className="noteblock">{"modules > filehub > rootDir (Folder Path)"}</p>
+
+            <p>
+                As the name suggests, <u>toggling <b>enabled</b> to false disables FileHub support for the server</u>,
+                While anything within <b>rootDir</b> is shared if the module is enabled, <u>It is recommended to use absolute path when setting the <b>rootDir</b> to avoid complications.</u>
+            </p>
+        </div>
+
+        <br />
+        <br />
+
+        <div className="border-left border-orange pl-2">
+            <h4>Others</h4>
+            <p>If you're the host, then you can access the dashboard window within this app, All you need to do is use localhost as your hostname and It should pop up on the navigation bar, Like this:</p>
+            <p className="noteblock">
+                <b className="text-success mr-1">http://localhost:[port]</b> instead of <b className="text-danger ml-1">http://[ip-address]:[port]</b>
+            </p>
+        </div>
 
     </>
 }
@@ -100,11 +140,24 @@ function Hosting() {
 function Connecting() {
     return <>
         <h3>
+            <span className="fas fa-link text-orange mr-2"></span>
             Connecting
         </h3>
         <p className="lead">
             Learn how to locate and connect with a Host.
         </p>
+
+        <br />
+        <br />
+
+        <div className="border-left border-orange pl-2">
+            <h4>Joining a local network</h4>
+            <p>
+                Obviously, you need to join a network first, network is strictly used here in terms of computer networks
+                so they may use ethernet cables or WiFi, either way, you should ask the network admin for permission to
+                enter their network. If you know for a fact that someone is hosting a FileHub server, then proceed.
+            </p>
+        </div>
 
         <br />
         <br />
@@ -119,7 +172,10 @@ function Connecting() {
 
 function Contribution() {
     return <>
-        <h3>Contributions</h3>
+        <h3>
+            <span className="fas fa-hands-helping text-orange mr-2"></span>
+            Contributions
+        </h3>
         <p className="lead">
             Think you can spice up the UI or add a nifty feature or two? please read on...
         </p>
@@ -128,32 +184,34 @@ function Contribution() {
         <br />
 
         <div className="border-left border-orange pl-2">
-            <h4>About me & the Project</h4>
+            <h4>About me & the motivation for the Project</h4>
             <p>
                 I'm Manny, the sole developer for this project(both the server and it's modules),
                 As you can tell, I have just stepped into this field(still almost 2 yrs in frontend dev),
-                So I'll gladly take any recommendations for UI improvements as I'm admittedly a bit lacking on that area.
+                So I'll gladly take any recommendations for UI/UX improvements as I'm admittedly a bit lacking on that area.
             </p>
 
             <p>
                 Putting that aside, The willburr project is supposed to be for educators and teachers, given how ubiquitous handheld devices
                 have become over the past decade, I think sharing of school materials(educational videos, school documents etc.) haven't improved much.
-                
             </p>
 
             <p>
-                Asking around, they often use facebook, or google drive to pass those stuff around, this might be nice but let's face it, The philippines is
-                still a relatively poor country, with an average wage of about PHP250 a day, so taking out PHP50(to buy load for accessing the internet) out of that already meager wage is already
-                asking for too much, not to mention setting up a local network(a hotspot or a router) is cheaper and more reliable(especially in the provinces).
+                After asking around, It looks like facebook, and google drive are the mainly used apps for passing those stuff around, that may work but let's face it, It requires students to have regular access
+                to the internet, which costs money. Most teachers already bring their copies of digital documents with them in their laptops or computers, So why won't they just distribute
+                them as is? It's because distributing them becomes tedious and time consuming the more students a teacher has.
             </p>
 
+            <p>
+                This method is cheaper(zero-cost actually), convenient and arguably more reliable(especially if deployed in the rural provinces)
+            </p>
 
             <p>
                 I Hope that even if it's just a little, I can help our School Bodies and Teachers provide better education for our growing student populace.
             </p>
         </div>
 
-        <br/>
+        <br />
         <div className="border-left border-orange pl-2">
             <h4>Wait, what If I just want to use it with my friends and family to share our files?</h4>
             <p>
@@ -175,9 +233,27 @@ function Contribution() {
         </p>
         </div>
 
-        <div className="border-left border-orange pl-2">
-            <h4></h4>
-        </div>
+        <br />
+        <br />
 
+        <Nav>
+            <Nav.Link className="text-light" href="https://github.com/MannyWeeb/filehub.git">
+                <h4 className="border-bottom border-orange pb-1">
+                    <span className="fab fa-github pr-2"></span>
+                    FileHub Repo
+                </h4>
+                <p className="small">This project</p>
+            </Nav.Link>
+            <Nav.Link className="text-light" href="https://github.com/MannyWeeb/willburr.git">
+                <h4 className="border-bottom border-orange pb-1">
+                    <span className="fab fa-github pr-2"></span>
+                    Willburr Repo
+                </h4>
+                <p className="small">The server it attaches to</p>
+            </Nav.Link>
+        </Nav>
+
+        <br />
+        <br />
     </>
 }

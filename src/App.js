@@ -9,6 +9,7 @@ import Navigator from "./components/Navigator";
 import FileView from "./views/FileView";
 import Home from "./views/Home";
 import SupportView from "./views/SupportView";
+import Dashboard from "./views/Dashboard";
 
 const SERVER = window.location.hostname;
 const APISERVER = `${window.location.protocol}//${SERVER}:55432/fh/api`;
@@ -32,7 +33,7 @@ export default function App() {
                 }
             }
         });
-    }, []);
+    }, [error]);
 
     let clearData = ()=>{
         setView("home");
@@ -54,11 +55,12 @@ export default function App() {
         clearData();
     }
 
-    let renderMainPanel = (view) =>{
+    let mainPanel = (view) =>{
         switch(view){
-            case "file"    : return <FileView key={data.fileName} data={data} onServerError={handleServerError} onServerReconnect={handleServerReconnect} />;
-            case "dir"     : return <DirectoryView  data={data} onItemSelect={handleItemSelect} onServerError={handleServerError} />;
-            case "support" : return <SupportView view={data}/>;
+            case "file"      : return <FileView key={data.fileName} data={data} onServerError={handleServerError} onServerReconnect={handleServerReconnect} />;
+            case "dir"       : return <DirectoryView  data={data} onItemSelect={handleItemSelect} onServerError={handleServerError} />;
+            case "support"   : return <SupportView view={data}/>;
+            case "dashboard" : return <Dashboard/>
             default: return <Home onNav={(e)=>{
                 const str = e.split("-");
                 setView(str[0]);
@@ -73,13 +75,20 @@ export default function App() {
             <Row className="span-content px-0" id="content-panel">
                 <Col id="directory-tree-col" className="py-2" xl={3} lg={3} md={4} sm={12}>
                     <DirectoryTree data={root} onItemSelect={handleItemSelect}>
-                        {error ? <Alert className="my-2" variant="danger" test-id="alert-danger">{error}</Alert> : ""}
+                        {error ? <Alert className="my-2" variant="danger" test-id="alert-danger">
+                            {error}
+                            <button className="btn btn-primary float-right" onClick={()=> setError(false)}>
+                                <span className="fas fa-redo">
+
+                                </span>
+                            </button>
+                        </Alert> : ""}
                     </DirectoryTree>
                 </Col>
 
                 <Col className="span-content py-2 px-0" xl={9} lg={9} md={8} sm={12}>
-                    <Container className="span-content custom-dark text-light px-0 py-3" id="explorer-panel" fluid>
-                        {renderMainPanel(view)}
+                    <Container className="span-content custom-dark text-light px-0 py-0" id="explorer-panel" fluid>
+                        {mainPanel(view)}
                     </Container>
                 </Col>
             </Row>

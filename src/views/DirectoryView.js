@@ -52,27 +52,33 @@ function DirectoryDetails() {
 }
 
 function DirectoryContent(props) {
+    let content = <h4>Empty Folder</h4>
+
+    const keys = Object.keys(props.data);
+
+    if(keys.length !== 0){
+        content = keys.map((_key) => {
+            const v = props.data[_key];
+    
+            let titleStr = `\nDate Modified:${new Date(v.timestamps.created).toDateString()}\nSize: ${bytesToSize(v.size)}\n`;
+    
+            return <ListGroup.Item key={_key} className="text-left text-inline my-2 list-group-item-custom" variant="dark" title={titleStr} onClick={() => props.onItemSelect({ key: _key, value: v })} action>
+                <h5>
+                    <span className={`fas fa-${v.type === "dir" ? "folder" : determineFileType(v.fileExt)} mr-3 text-orange`}></span>
+                    {_key}
+                </h5>
+            </ListGroup.Item>
+        });
+    }
+
     return <center>
         <ListGroup id="directory-content-list">
-            {
-                Object.keys(props.data).map((_key) => {
-                    const v = props.data[_key];
-
-                    let titleStr = `\nDate Modified:${new Date(v.timestamps.created).toDateString()}\nSize: ${bytesToSize(v.size)}\n`;
-
-                    return <ListGroup.Item key={_key} className="text-left text-inline my-2 list-group-item-custom" variant="dark" title={titleStr} onClick={() => props.onItemSelect({ key: _key, value: v })} action>
-                        <h5>
-                            <span className={`fas fa-${v.type === "dir" ? "folder" : determineFileType(v.fileExt)} mr-3 text-orange`}></span>
-                            {_key}
-                        </h5>
-                    </ListGroup.Item>
-                })
-            }
+            {content}
         </ListGroup>
     </center>
 }
 
 function formatContent(contains) {
     const { file, folder } = contains;
-    return `${folder !== 0 ? `${folder} folder${folder > 1 ? "s" : ""}` : ""} ${file !== 0 ? `${file} file${file > 1 ? "s" : ""}` : ""}`;
+    return `${folder !== 0 ? `${folder} folder${folder > 1 ? "s" : ""}` : ""} ${file !== 0 ? `${file} file${file > 1 ? "s" : ""}` : "Nothing"}`;
 }
