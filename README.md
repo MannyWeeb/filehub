@@ -18,8 +18,12 @@ If you're looking to share static content(saved website, or a folder without fil
 
 * Downloading folders and it's contents (Like what you see on MEGA).
 
+* Routing(useful when accessing deeply nested files or folders)
+
 * Support for natively viewing archives within the browser.
 
 * File Uploads(not really difficult to implement but users may spam the server with non-family friendly content, later tater)
 
 * Translate to other dialects(Tagalog, Waray, Cebuano, etc).
+
+* Considering to turn this as a standalone program(with server and web-app packed into one)

@@ -22,6 +22,10 @@ body , html , #app{
     background-color: orange;
 }
 
+.navbar a{
+    text-decoration: none;
+    color : white;
+}
 
 .span-content{
     height: 100%;
@@ -83,6 +87,11 @@ body , html , #app{
     min-width:1px;
 }
 
+#directory-tree a{
+    color: white;
+    text-decoration:none;
+}
+
 #explorer-panel{
     overflow-y : auto;
     overflow-x : hidden;
@@ -111,11 +120,15 @@ body , html , #app{
 }
  */
 
+#file-card{
+    background-color: transparent!important;
+}
 
-/*pls keep these rulesets, will be useful in the future.*/
-.action-card .card-header{
+#file-card .card-header{
     height: 80%;
-    overflow: auto;
+}
+#file-card .card-footer{
+    height: 20%;
 }
 
 
@@ -147,11 +160,6 @@ body , html , #app{
     }
 }
 
-#file-card{
-    overflow: auto;
-    background-color: rgba(0,0,0,.03);
-}
-
 #home-view{
     font-family: Ubuntu;
     font-size: larger;
@@ -166,7 +174,6 @@ body , html , #app{
     position:relative;
     background-color: #1e1e1e;
     text-align: center;
-    height: 350px;
     border: 1px rgba(255,153,0 , 0.15) solid;
     border-radius: 20px;
 }
@@ -176,11 +183,10 @@ body , html , #app{
     position: absolute;
     left: 0;
     top: 0;
-    height: auto;
 }
 
 #home-view .bg-text{
-    position: relative; 
+    position: relative;
 }
 
 #directory-content-list{
@@ -213,12 +219,18 @@ body , html , #app{
 }
 
 #support-navbar{
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 #support-panel .text-secondary{
     color : #aebecc!important;
+}
+
+#dir-controls{
+    position:absolute;
+    float: left;
+    margin: 20px;
 }
 
 .noteblock{

@@ -1,45 +1,64 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext } from "react";
 import { Button, ButtonGroup, Col, ListGroup, Row } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-import { bytesToSize, determineFileType } from "../utils";
+import { bytesToSize, determineFileType , encodePath } from "../utils/helpers";
 
 let DirectoryContext;
 
 export default function DirectoryView(props) {
-    const { value } = props.data;
+    let content = <></>
 
-    if (value) {
-        DirectoryContext = createContext(props.data);
-        return <DirectoryContext.Provider value={props.data}>
-            <div className="span-content">
-                <Row>
-                    <Col>
-                        <DirectoryDetails />
-                    </Col>
-                </Row>
-                <center><h4>Contents</h4></center>
-                <Row>
-                    <Col className="span-content">
-                        <DirectoryContent data={value.content} onItemSelect={props.onItemSelect} />
-                    </Col>
-                </Row>
-            </div>
-
-        </DirectoryContext.Provider>
-    } else {
-        return <></>
+    if (props.data) {
+        const { value } = props.data;
+        DirectoryContext = createContext(props);
+        if (value.type && value.type === "dir") {
+            content = <DirectoryContext.Provider value={props}>
+                <div className="span-content">
+                    <Row>
+                        <Col>
+                            <DirectoryDetails />
+                        </Col>
+                    </Row>
+                    <center><h4>Contents</h4></center>
+                    <Row>
+                        <Col className="span-content">
+                            <DirectoryContent data={value.content} />
+                        </Col>
+                    </Row>
+                </div>
+            </DirectoryContext.Provider>
+        }
     }
+
+    return content;
 }
 
 function DirectoryDetails() {
     return <DirectoryContext.Consumer>
-        {({ key, value }) => {
-            const { size, contains } = value;
+        {(props) => {
+            const { data } = props;
+            const { path, contains, size , type } = data.value;
+            const hasParent = path !== "/" && path.replace(/\B\//g, "").split("/").length >= 1;
+
+            let controls = "";
+
+            if (hasParent) {
+                controls = <div>
+                    <Link className="text-light" to={encodePath(type,path.replace(`/${data.key}`, ""))}>
+                        <span className="fas fa-arrow-left pointable"></span>
+                    </Link>
+                </div>
+            }
 
             let containsStr = formatContent(contains);
             return <center className="details">
+                <h2 id="dir-controls">
+                    {controls}
+                </h2>
                 <span className="fas fa-folder file-type text-orange"></span>
-                <h5>{key}</h5>
+                <h5>{data.key}</h5>
                 <h6>Contains: {containsStr}</h6>
                 <h6>Total Size: {bytesToSize(size)}</h6>
 
@@ -53,22 +72,24 @@ function DirectoryDetails() {
 
 function DirectoryContent(props) {
     let content = <h4>Empty Folder</h4>
+    if (props.data) {
+        const keys = Object.keys(props.data);
 
-    const keys = Object.keys(props.data);
+        if (keys.length !== 0) {
+            content = keys.map((_key) => {
+                const v = props.data[_key];
+                const { type, fileExt, timestamps, path } = v;
 
-    if(keys.length !== 0){
-        content = keys.map((_key) => {
-            const v = props.data[_key];
-    
-            let titleStr = `\nDate Modified:${new Date(v.timestamps.created).toDateString()}\nSize: ${bytesToSize(v.size)}\n`;
-    
-            return <ListGroup.Item key={_key} className="text-left text-inline my-2 list-group-item-custom" variant="dark" title={titleStr} onClick={() => props.onItemSelect({ key: _key, value: v })} action>
-                <h5>
-                    <span className={`fas fa-${v.type === "dir" ? "folder" : determineFileType(v.fileExt)} mr-3 text-orange`}></span>
-                    {_key}
-                </h5>
-            </ListGroup.Item>
-        });
+                let titleStr = `\nDate Modified:${new Date(timestamps.created).toDateString()}\nSize: ${bytesToSize(v.size)}\n`;
+
+                return <Link key={_key} className="text-left text-inline my-2 list-group-item-custom list-group-item list-group-item-dark list-group-item-action" title={titleStr} to={encodePath(type , path)}>
+                    <h5>
+                        <span className={`fas fa-${type === "dir" ? "folder" : determineFileType(fileExt)} mr-3 text-orange`}></span>
+                        {_key}
+                    </h5>
+                </Link>
+            });
+        }
     }
 
     return <center>

@@ -1,39 +1,40 @@
-import React, { useState } from "react";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function SupportView(props) {
-    const [view, setView] = useState(props.view);
-    let viewContent;
+export default function SupportView() {
+    let { path , url } = useRouteMatch();
+    return <Router>
+        <Container className="span-content py-3" id="support-panel" data-spy="scroll" fluid>
+            <Row className="span-height py-2">
+                <Col xl={2}>
+                    <Navbar className="custom-dark pb-3" expand="xl">
+                        <Navbar.Toggle className="bg-orange" aria-controls="support-navbar" />
+                        <Navbar.Collapse id="support-navbar">
+                            <Nav className="flex-column mt-3 pl-2 border-left border-orange">
+                                {["introduction", "hosting", "connecting", "contribution"].map((e,i) => {
+                                    return <Link className="text-light" to={i === 0 ? `${url}` : `${url}/${e}`} key={e}>
+                                        <h5>{e.charAt(0).toUpperCase() + e.substring(1, e.length)}</h5>
+                                    </Link>
+                                })}
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                </Col>
 
-    switch (view) {
-        case "hosting": viewContent = <Hosting />; break;
-        case "connecting": viewContent = <Connecting />; break;
-        case "contribution": viewContent = <Contribution />; break;
-        default: viewContent = <Intro />;
-    }
-
-    return <Container className="span-content" id="support-panel" data-spy="scroll" fluid>
-        <Row className="span-height py-2">
-            <Col className="d-none d-lg-block pr-0" xl={2} lg={2}>
-                <Navbar className="bg-ash-gray pb-3 border-right border-orange" expand="md" id="support-navbar">
-                    <Navbar.Collapse>
-                        <Nav className="flex-column">
-                            <Nav.Link className="text-light" onClick={() => setView("introduction")}>Introduction</Nav.Link>
-                            <Nav.Link className="text-light" onClick={() => setView("hosting")}>Hosting</Nav.Link>
-                            <Nav.Link className="text-light" onClick={() => setView("connecting")}>Connecting</Nav.Link>
-                            <Nav.Link className="text-light" onClick={() => setView("contribution")}>Contributions</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            </Col>
-
-            <Col>
-                <Container className="text-light">
-                    {viewContent}
-                </Container>
-            </Col>
-        </Row>
-    </Container>
+                <Col>
+                    <Container className="text-light">
+                        <Switch>
+                            <Route path={`${path}/hosting`} component={Hosting} />
+                            <Route path={`${path}/connecting`} component={Connecting} />
+                            <Route path={`${path}/contribution`} component={Contribution} />
+                            <Route path={`${path}`} component={Intro} />
+                        </Switch>
+                    </Container>
+                </Col>
+            </Row>
+        </Container>
+    </Router>
 }
 
 function Intro() {

@@ -1,23 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import _ from "lodash";
 
-import { determineFileType } from "../utils";
+import { determineFileType , encodePath} from "../utils/helpers";
 
-function Tree(props) {
+export default function Tree(props) {
     let branches = "";
 
     if (props.data) {
-        branches = <>
+        const { content , type , path } = props.data;
+
+        branches = <Link to={encodePath(type,  path)}>
             <h4 className="pointable ml-4" data-toggle="collapse" href="#root" id="root-link">
                 <span className="fas fa-bookmark text-orange"></span>
                 Root
             </h4>
             <div className="collapse ml-4" id="root">
-                {renderBranch(props.data.content, props.onItemSelect , 1)}
+                {renderBranch(content, 1)}
             </div>
-        </>
+        </Link>
     }
 
     return <Nav className="flex-column custom-dark pt-3 px-0 text-light" id="directory-tree-panel">
@@ -34,32 +37,42 @@ function Tree(props) {
     </Nav>
 }
 
-function renderBranch(props, onItemSelect , depth) {
+function renderBranch(props, depth) {
     return Object.keys(props).map((val) => {
-        const { type, path } = props[val];
+        const item = props[val];
+        const { type } = item;
         const _id = _.uniqueId("tree_");
 
-        if (type === "dir") {
-            return <div style={{ textIndent: `${depth}em` }} key={path}>
-                <h5 className="pointable text-left " data-toggle="collapse" href={`#div-${_id}`} onClick={()=>onItemSelect({key : val , value : props[val]})}>
-                    <span className="fas fa-folder text-orange"></span> {val}
-                </h5>
+        let linkprops = {
+            "style": { textIndent: `${depth}em` },
+        }
 
-                <div className="collapse" id={`div-${_id}`}>
-                    {renderBranch(props[val].content, onItemSelect, depth + 1)}
+        if (type === "dir") {
+            linkprops = {
+                "data-toggle": "collapse",
+                "href": `#div-${_id}`,
+            }
+            return <div style={{ textIndent: `${depth}em` }} key={val}>
+                <LinkItem linkprops={linkprops} value={{ fileName: val, item }} key={val} />
+
+                <div className="collapse" key={`${val}-collapse`} id={`div-${_id}`}>
+                    {renderBranch(props[val].content , depth + 1)}
                 </div>
             </div>
-        } else {
-            const { fileExt } = props[val];
-
-            let fileType = determineFileType(fileExt);
-
-            return <h5 style={{ textIndent: `${depth}em` }} className="pointable" key={path} onClick={()=>onItemSelect({key : val , value : props[val]})}>
-                <span className={`fas fa-${fileType} text-orange`} ></span>
-                {val}
-            </h5>
         }
+        
+        return <LinkItem linkprops={linkprops} value={{ fileName: val, item }} key={val} />
     });
 }
 
-export default Tree;
+function LinkItem(props) {
+    const { linkprops, value } = props;
+    const { type, fileExt , path } = value.item;
+
+    return <Link to={encodePath(type,path)}>
+        <h5 className="pointable text-left" {...linkprops}>
+            <span className={`fas fa-${type === "dir" ? "folder" : determineFileType(fileExt)} text-orange`}></span>
+            {value.fileName}
+        </h5>
+    </Link>
+}

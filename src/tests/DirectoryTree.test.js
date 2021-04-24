@@ -1,6 +1,7 @@
 import React from "react";
 import DirectoryTree from "../components/DirectoryTree";
 import { render } from "@testing-library/react";
+import {BrowserRouter as Router } from "react-router-dom";
 
 import data from "../mocks/fh-getData.json";
 
@@ -10,8 +11,8 @@ beforeEach(()=>{
     mockedData = data;
 });
 
-let setup = ()=>{
-    return render(<DirectoryTree data={mockedData}/>);
+function setup(){
+    return render(<Router><DirectoryTree data={mockedData}/></Router>)
 }
 
 test("Properly renders the directory-tree" , ()=>{
@@ -20,7 +21,6 @@ test("Properly renders the directory-tree" , ()=>{
     let _recursiveRead = (content)=>{
         for(const title of Object.keys(content)){
             const v = content[title];
-            
             expect(getByText(title.toString()).textContent).toMatch(title);
             if(v.type === "dir")_recursiveRead(v.content);
         }

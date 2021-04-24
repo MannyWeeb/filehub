@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function Home(props) {
+export default function Home() {
     return <Container className="span-content py-4 px-5" id="home-view" fluid>
         <center>
             <p className="service-name filehub-card-icon text-center px-2 py-1 m-0 zoomed">
@@ -21,7 +22,7 @@ export default function Home(props) {
 
                     <p>Follow this guide to do so, you just need to edit a line so it's super easy.</p>
                     <br />
-                    <Button variant="primary" onClick={()=>props.onNav("support-hosting")}>Hosting 101</Button>
+                    <Link className="btn btn-primary" to="/support/hosting">Hosting 101</Link>
                 </div>
             </Col>
         </Row>
@@ -42,7 +43,7 @@ export default function Home(props) {
                         provided below
                     </p>
                     <br />
-                    <Button variant="primary" onClick={()=>props.onNav("support-connecting")}>Connecting to a Host.</Button>
+                    <Link className="btn btn-primary" to="/support/connecting">Connecting to a Host</Link>
                 </div>
             </Col>
         </Row>

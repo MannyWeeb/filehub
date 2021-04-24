@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import request from "request";
 
 import { APISERVER } from "../App";
-import { bytesToSize } from "../utils";
+import { bytesToSize } from "../utils/helpers";
 
 export default function Dashboard() {
     const [info, setInfo] = useState(null);
@@ -14,7 +14,6 @@ export default function Dashboard() {
             if (err) {
                 setError("Failed to fetch Server Info!");
             } else {
-                console.log(body);
                 setInfo(JSON.parse(body));
             }
         });
@@ -64,6 +63,7 @@ export default function Dashboard() {
                 <Col className="border-left border-orange noteblock pl-4 pr-0 mx-4" xl={6} lg={5}>
                     <h4>Network Interfaces (Excluding loopbacks)</h4>
                     <p>These are the interfaces on which FileHub is being broadcasted on.</p>
+                    <p><i>If it isn't obvious, this is where your users should connect once they're on the same network as yours.</i></p>
                     <br />
                     {interfaces.map((v)=>{
                         return <h5 key={v.name} className="codeblock mr-4">{v.name}: {v.address}</h5>

@@ -20,5 +20,9 @@ function determineFileType(ext){
     return "file";
 }
 
+function encodePath(type,path){
+    return `/${type === "dir" ? "browse" : "preview"}?p=${encodeURIComponent(path)}`;
+}
 
-export { bytesToSize , filterPath , determineFileType , fileTypes};
+
+export { bytesToSize , filterPath , determineFileType , encodePath , fileTypes};
