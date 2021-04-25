@@ -4,7 +4,7 @@ import { APISERVER } from "../App";
 
 function getThumbs(path) {
     return new Promise((resolve, reject) => {
-        request.get(`${APISERVER}/getThumbnail?p=${encodeURI(path).replace("&", "%26")}`, {}, (err, res, body) => {
+        request.get(`${APISERVER}/getThumbnail?p=${encodeURIComponent(path)}`, {}, (err, res, body) => {
             if (!err) {
                 let thumbnail = {
                     success: (res.statusCode === 200)
@@ -26,7 +26,7 @@ function getThumbs(path) {
 
 function getMetadata(path) {
     return new Promise((resolve, reject) => {
-        request.get(`${APISERVER}/getMetadata?p=${encodeURI(path).replace("&", "%26")}`, {}, (err, res, body) => {
+        request.get(`${APISERVER}/getMetadata?p=${encodeURIComponent(path)}`, {}, (err, res, body) => {
             if (!err) {
                 let metadata = {
                     success: (res.statusCode === 200)

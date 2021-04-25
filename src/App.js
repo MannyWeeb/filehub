@@ -51,7 +51,7 @@ export default function App() {
                 try{
                     for (const [param, value] of new URLSearchParams(search)) {
                         if (param === "p") {
-                            let target = searchTree(root , decodeURIComponent(value).substring(1).split("/"));
+                            let target = searchTree(root , value.substring(1).split("/"));
 
                             if (target) {
                                 const { type , path} = target.value;
@@ -92,8 +92,6 @@ export default function App() {
     //Runtime Complexity: O(n) - constant
     let searchTree = (initialRoot , obj) => {
         let target = { key: "/", value: initialRoot };
-        console.log(target);
-        console.log(obj);
         for (const dir of obj) {
             if(dir === "")break;
             let temp = target.value.content[dir];

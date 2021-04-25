@@ -83,7 +83,7 @@ function ActionCard(props) {
         }
     }, [props]);
 
-    const contentSrc = `${STATICSERVER}/content/${data.path}`;
+    const contentSrc = `${STATICSERVER}/content/${encodeURIComponent(data.path)}`;
     let header = "";
 
     if (info.metadata) {
