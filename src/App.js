@@ -120,6 +120,7 @@ export default function App() {
                 <Col className="span-content py-2 px-0" xl={9} lg={9} md={8} sm={12}>
                     <Container className="span-content custom-dark text-light px-0 py-0" id="explorer-panel" fluid>
                         <Switch>
+                            <Route exact path="/" component={Home} />
                             <Route path="/dashboard" component={Dashboard} />
                             <Route path="/support" component={SupportView} />
                             <Route path="/preview">
@@ -128,13 +129,28 @@ export default function App() {
                             <Route path="/browse">
                                 <DirectoryView data={data} onServerError={handleServerError}/>
                             </Route>
-                            <Route path="/*" component={Home} />
+                            <Route path="*">
+                                <UnknownComponent/>
+                            </Route>
                         </Switch>
                     </Container>
                 </Col>
             </Row>
         </Container>
     </>)
+}
+
+function UnknownComponent(){
+    return <Container>
+        <center>
+            <br/>
+            <h2>404 Not Found</h2>
+
+            <br/>
+
+            <p>You're trying to access a page that does not exist.</p>
+        </center>
+    </Container>
 }
 
 export { APISERVER, SERVER, STATICSERVER }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import _ from "lodash";
 
 import { determineFileType , encodePath} from "../utils/helpers";
@@ -9,18 +9,20 @@ import { determineFileType , encodePath} from "../utils/helpers";
 export default function Tree(props) {
     let branches = "";
 
+    let history = useHistory();
+
     if (props.data) {
         const { content , type , path } = props.data;
 
-        branches = <Link to={encodePath(type,  path)}>
-            <h4 className="pointable ml-4" data-toggle="collapse" href="#root" id="root-link">
+        branches = <>
+            <h4 className="pointable ml-4" data-toggle="collapse" href="#root" id="root-link" onClick={()=> history.push(encodePath(type,  path))}>
                 <span className="fas fa-bookmark text-orange"></span>
                 Root
             </h4>
             <div className="collapse ml-4" id="root">
                 {renderBranch(content, 1)}
             </div>
-        </Link>
+        </>
     }
 
     return <Nav className="flex-column custom-dark pt-3 px-0 text-light" id="directory-tree-panel">
