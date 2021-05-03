@@ -45,9 +45,11 @@ function DirectoryDetails() {
             let controls = "";
 
             if (hasParent) {
-                controls = <Link className="text-light" to={encodePath(type,path.replace(`/${data.key}`, ""))}>
+                controls = <div>
+                    <Link className="text-light" to={encodePath(type,path.replace(`/${data.key}`, ""))}>
                         <span className="fas fa-arrow-left pointable"></span>
                     </Link>
+                </div>
             }
 
             let containsStr = formatContent(contains);

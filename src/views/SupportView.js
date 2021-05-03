@@ -1,10 +1,11 @@
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function SupportView() {
     let { path , url } = useRouteMatch();
-    return <Container className="span-content py-3" id="support-panel" data-spy="scroll" fluid>
+    return <Router>
+        <Container className="span-content py-3" id="support-panel" data-spy="scroll" fluid>
             <Row className="span-height py-2">
                 <Col xl={2}>
                     <Navbar className="custom-dark pb-3" expand="xl">
@@ -24,15 +25,16 @@ export default function SupportView() {
                 <Col>
                     <Container className="text-light">
                         <Switch>
-                            <Route exact path={path} component={Intro} />
                             <Route path={`${path}/hosting`} component={Hosting} />
                             <Route path={`${path}/connecting`} component={Connecting} />
                             <Route path={`${path}/contribution`} component={Contribution} />
+                            <Route path={`${path}`} component={Intro} />
                         </Switch>
                     </Container>
                 </Col>
             </Row>
         </Container>
+    </Router>
 }
 
 function Intro() {
